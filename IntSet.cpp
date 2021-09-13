@@ -111,15 +111,25 @@ IntSet::IntSet(const IntSet& src): capacity(src.capacity), used(src.used)
    }
 }
 
-
+//DESTRUCTOR
 IntSet::~IntSet()
 {
-   cout << "destructor is not implemented yet..." << endl;
+   delete [] data;
 }
 
 IntSet& IntSet::operator=(const IntSet& rhs)
 {
-   cout << "operator=() is not implemented yet..." << endl;
+    if (this != &rhs)
+   {
+      int* newData = new int[rhs.capacity];
+      for (int i = 0; i < rhs.used; ++i) {
+         newData[i] = rhs.data[i];
+      }
+      delete [] data;
+      data = newData;
+      capacity = rhs.capacity;
+      used = rhs.used;
+   }
    return *this;
 }
 
