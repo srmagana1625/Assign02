@@ -88,20 +88,18 @@ void IntSet::resize(int new_capacity)
    int * newData = new int[capacity];
    for (int i = 0; i < used; ++i) {
       newData[i] = data[i];
+   }
       delete [] data;
       data = newData;
-   }
 }
 
 // CONSTRUCTOR
 IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
 {
-   cout << "this is the initial capacity " << initial_capacity << endl;
    if (capacity < 1) {
       capacity = DEFAULT_CAPACITY;
    }
    data = new int[capacity];
-   cout << "this is the data in the constructor" << data << endl;
 }
 
 //COPY CONSTRUCTOR
@@ -137,14 +135,12 @@ IntSet& IntSet::operator=(const IntSet& rhs)
 
 int IntSet::size() const
 {
-   cout << "size() is not implemented yet..." << endl;
-   return 0; // dummy value returned
+   return used;
 }
 
 bool IntSet::isEmpty() const
 {
-   cout << "isEmpty() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   return used == 0; 
 }
 
 bool IntSet::contains(int anInt) const
@@ -208,8 +204,21 @@ bool IntSet::add(int anInt)
 
 bool IntSet::remove(int anInt)
 {
-   cout << "remove() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (!contains(anInt)) {
+      return false;
+   } 
+
+   for (int i = 0; i < used; ++i) {
+      if (data[i] == anInt) {   
+         for (int j = i; j <= used; j++) {
+            data[j - 1] = data[j];
+         }
+      }
+   }
+
+   used--;
+   resize(used);
+   return true;
 }
 
 //equivalently see equal method in assign01
