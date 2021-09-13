@@ -96,10 +96,12 @@ void IntSet::resize(int new_capacity)
 // CONSTRUCTOR
 IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
 {
-   if (initial_capacity < 1) {
-      initial_capacity = DEFAULT_CAPACITY;
-      data = new int[capacity];
+   cout << "this is the initial capacity " << initial_capacity << endl;
+   if (capacity < 1) {
+      capacity = DEFAULT_CAPACITY;
    }
+   data = new int[capacity];
+   cout << "this is the data in the constructor" << data << endl;
 }
 
 //COPY CONSTRUCTOR
@@ -147,8 +149,12 @@ bool IntSet::isEmpty() const
 
 bool IntSet::contains(int anInt) const
 {
-   cout << "contains() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   for (int i = 0; i < used; ++i) {
+      if (data[i] == anInt) {
+         return true;
+      }
+   }
+   return false;
 }
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
@@ -192,8 +198,12 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   cout << "add() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (!contains(anInt)) {
+      data[used] = anInt;
+      used++;
+      resize(used);
+   }
+   return true; 
 }
 
 bool IntSet::remove(int anInt)
@@ -202,8 +212,10 @@ bool IntSet::remove(int anInt)
    return false; // dummy value returned
 }
 
+//equivalently see equal method in assign01
 bool operator==(const IntSet& is1, const IntSet& is2)
 {
-   cout << "operator==() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   int is1Len = is1.size();
+   if ( is1Len != is2.size() ) return false;
+   return (is1.isSubsetOf(is2) && is2.isSubsetOf(is1));
 }
