@@ -186,8 +186,14 @@ IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
 {
-   cout << "intersect() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   IntSet result = IntSet();
+   for (int i= 0; i < otherIntSet.used; i++) {
+      // only add to result if contains(otherintset.data[i])
+      if (contains(otherIntSet.data[i])) {
+         result.add(otherIntSet.data[i]);
+      }
+   }
+   return result; 
 }
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
