@@ -196,15 +196,26 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
    return result; 
 }
 
+//BUG only returns the last integer of the first set
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
-   cout << "subtract() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   IntSet result = IntSet();
+   //add this set to result
+   for (int i= 0; i < used; i++) {
+      result.add(data[i]);
+   }
+   
+   //remove the elements in this set that are also in otherIntSet
+   for (int i= 0; i < otherIntSet.used; i++) {
+      result.remove(otherIntSet.data[i]);
+   }
+   return result; 
 }
 
 void IntSet::reset()
 {
-   cout << "reset() is not implemented yet..." << endl;
+   used = 0; 
+   resize(used);
 }
 
 bool IntSet::add(int anInt)
@@ -225,6 +236,7 @@ bool IntSet::remove(int anInt)
 
    for (int i = 0; i < used; ++i) {
       if (data[i] == anInt) {   
+         cout << "removing " << data[i] << "anInt is " << anInt << endl;
          for (int j = i; j <= used; j++) {
             data[j - 1] = data[j];
          }
