@@ -235,10 +235,12 @@ bool IntSet::remove(int anInt)
    } 
 
    for (int i = 0; i < used; ++i) {
+      cout << "testing if " << data[i] << " = " << anInt << endl;
       if (data[i] == anInt) {   
-         cout << "removing " << data[i] << "anInt is " << anInt << endl;
-         for (int j = i; j <= used; j++) {
-            data[j - 1] = data[j];
+         cout << "removing " << data[i] << endl;
+         for (int j = i + 1; j <= used; j++) {
+            cout << data[j-1] << " is the new start position" << endl;
+            data[j-1] = data[j];
          }
       }
    }
