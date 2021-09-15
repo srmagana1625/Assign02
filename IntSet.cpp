@@ -84,6 +84,7 @@ void IntSet::resize(int new_capacity)
    if (new_capacity < 1) {
       new_capacity = 1;
    }
+   //capacity = int(1.5*new_capacity) +1;
    capacity = new_capacity;
    int * newData = new int[capacity];
    for (int i = 0; i < used; ++i) {
@@ -214,7 +215,7 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 
 void IntSet::reset()
 {
-   delete [] data;
+   used = 0;
 }
 
 bool IntSet::add(int anInt)
@@ -222,7 +223,8 @@ bool IntSet::add(int anInt)
    if (!contains(anInt)) {
       data[used] = anInt;  
       used++;  
-      resize(used);
+      // resize(int(1.5*used) + 1);
+      resize(used)
       return true; 
    }
    else {
