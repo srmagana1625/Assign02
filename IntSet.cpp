@@ -79,7 +79,7 @@ using namespace std;
 void IntSet::resize(int new_capacity)
 {
    if (new_capacity < used) {
-         new_capacity = used;
+      new_capacity = used;
    }
    if (new_capacity < 1) {
       new_capacity = 1;
@@ -89,8 +89,8 @@ void IntSet::resize(int new_capacity)
    for (int i = 0; i < used; ++i) {
       newData[i] = data[i];
    }
-      delete [] data;
-      data = newData;
+   delete [] data;
+   data = newData;
 }
 
 // CONSTRUCTOR
@@ -196,7 +196,6 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
    return result; 
 }
 
-//BUG only returns the last integer of the first set
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
    IntSet result = IntSet();
@@ -212,20 +211,23 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
    return result; 
 }
 
+
 void IntSet::reset()
 {
-   used = 0; 
-   resize(used);
+   delete [] data;
 }
 
 bool IntSet::add(int anInt)
 {
    if (!contains(anInt)) {
-      data[used] = anInt;
-      used++;
+      data[used] = anInt;  
+      used++;  
       resize(used);
+      return true; 
    }
-   return true; 
+   else {
+      return false;
+   }
 }
 
 bool IntSet::remove(int anInt)
